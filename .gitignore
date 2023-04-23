@@ -1,7 +1,6 @@
+bin/
 obj/
 .vs/
 
 appsettings.Development.json
 
-Backend/OnBoardingDigital.Domain/bin/
-Backend/OnBoardingDigital.Domain/obj/
