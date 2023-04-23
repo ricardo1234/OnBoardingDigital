@@ -12,10 +12,15 @@ public class FieldOptionsSettings : ValueObject
         _options = options;
     }
 
-    public static FieldOptionsSettings CreateNew(List<string> options) => new(options);
+    public static FieldOptionsSettings Create(List<string> options) => new(options);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return _options;
     }
+#pragma warning disable CS8618
+    private FieldOptionsSettings()
+    {
+    }
+#pragma warning restore CS8618
 }

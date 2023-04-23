@@ -28,6 +28,7 @@ public sealed class OnBoardingDigitalDbContext : DbContext
     /// <param name="modelBuilder">The model builder.</param>
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.ApplyConfiguration(new FormEntityTypeConfiguration());
+        modelBuilder.ApplyConfigurationsFromAssembly(typeof(OnBoardingDigitalDbContext).Assembly);
+        base.OnModelCreating(modelBuilder);
     }
 }

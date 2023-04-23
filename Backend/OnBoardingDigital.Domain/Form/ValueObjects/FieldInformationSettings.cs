@@ -4,7 +4,7 @@ namespace OnBoardingDigital.Domain.Form.ValueObjects;
 
 public class FieldInformationSettings : ValueObject
 {
-    public string HtmlValue { get; }
+    public string HtmlValue { get; private set; }
     private FieldInformationSettings(string htmlValue)
     {
         //Todo: Validations
@@ -17,4 +17,9 @@ public class FieldInformationSettings : ValueObject
     {
         yield return HtmlValue;
     }
+#pragma warning disable CS8618
+    private FieldInformationSettings()
+    {
+    }
+#pragma warning restore CS8618
 }

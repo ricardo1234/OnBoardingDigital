@@ -6,8 +6,8 @@ namespace OnBoardingDigital.Domain.Form.ValueObjects;
 
 public class Repeatable : ValueObject
 {
-    public bool CanRepeat { get; }
-    public int? NumberOfReapeats { get; }
+    public bool CanRepeat { get; private set; }
+    public int? NumberOfReapeats { get; private set; }
 
     private Repeatable(bool canRepeat, int? numberOfReapeats)
     {
@@ -16,11 +16,17 @@ public class Repeatable : ValueObject
         NumberOfReapeats = numberOfReapeats;
     }
 
-    public static Repeatable CreateNew(bool canRepeat = false, int? numberOfReapeats = null) => new(canRepeat, numberOfReapeats);
+    public static Repeatable Create(bool canRepeat = false, int? numberOfReapeats = null) => new(canRepeat, numberOfReapeats);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return CanRepeat;
         yield return NumberOfReapeats;
     }
+
+#pragma warning disable CS8618
+    private Repeatable()
+    {
+    }
+#pragma warning restore CS8618
 }
