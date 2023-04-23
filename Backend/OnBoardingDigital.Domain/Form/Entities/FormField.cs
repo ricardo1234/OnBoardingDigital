@@ -10,15 +10,16 @@ public sealed class FormField : Entity<FormFieldId>
     public int Order { get; }
     public bool Required { get; }
     public string Description { get; }
-    public FieldType Type { get; set; }
+    public FieldType Type { get; }
 
-    public FieldChoiceSettings ChoiceSettings { get; set; }
-    public FieldFileSettings FileSettings { get; set; }
-    public FieldNumberSettings NumberSettings { get; set; }
-    public FieldOptionsSettings OptionsSettings { get; set; }
-    public FieldTextSettings TextSettings { get; set; }
-    
-    private FormField(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings choiceSettings, FieldFileSettings fileSettings, FieldNumberSettings numberSettings, FieldOptionsSettings optionsSettings, FieldTextSettings textSettings) : base(id)
+    public FieldChoiceSettings ChoiceSettings { get; }
+    public FieldFileSettings FileSettings { get; }
+    public FieldNumberSettings NumberSettings { get; }
+    public FieldOptionsSettings OptionsSettings { get; }
+    public FieldTextSettings TextSettings { get; }
+    public FieldInformationSettings InformationSettings { get; }
+
+    private FormField(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings choiceSettings, FieldFileSettings fileSettings, FieldNumberSettings numberSettings, FieldOptionsSettings optionsSettings, FieldTextSettings textSettings, FieldInformationSettings informationSettings) : base(id)
     {
         Order = order;
         Required = required;
@@ -29,11 +30,12 @@ public sealed class FormField : Entity<FormFieldId>
         NumberSettings = numberSettings;
         OptionsSettings = optionsSettings;
         TextSettings = textSettings;
+        InformationSettings = informationSettings;
     }
 
-    public static FormField Create(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings choiceSettings, FieldFileSettings fileSettings, FieldNumberSettings numberSettings, FieldOptionsSettings optionsSettings, FieldTextSettings textSettings)
+    public static FormField Create(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings choiceSettings, FieldFileSettings fileSettings, FieldNumberSettings numberSettings, FieldOptionsSettings optionsSettings, FieldTextSettings textSettings, FieldInformationSettings informationSettings)
     {
-        return new(id, order, required, description, type, choiceSettings, fileSettings, numberSettings, optionsSettings, textSettings);
+        return new(id, order, required, description, type, choiceSettings, fileSettings, numberSettings, optionsSettings, textSettings, informationSettings);
     }
 
 }
