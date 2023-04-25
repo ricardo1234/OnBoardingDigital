@@ -1,8 +1,8 @@
 ﻿using OnBoardingDigital.Domain.Common;
-using OnBoardingDigital.Domain.Form.Entities;
-using OnBoardingDigital.Domain.Form.ValueObjects;
+using OnBoardingDigital.Domain.FormAggregate.Entities;
+using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
-namespace OnBoardingDigital.Domain.Form;
+namespace OnBoardingDigital.Domain.FormAggregate;
 
 public sealed class Form : AggregateRoot<FormId, Guid>
 {
@@ -15,7 +15,8 @@ public sealed class Form : AggregateRoot<FormId, Guid>
         Name = name;
     }
 
-    public static Form Create(string name) => new(FormId.CreateUnique(), name);
+    public static Form CreateNew(string name) => new(FormId.CreateUnique(), name);
+    public static Form Create(FormId id, string name) => new(id, name);
 
     public void AddFormSection(FormSection section)
     {

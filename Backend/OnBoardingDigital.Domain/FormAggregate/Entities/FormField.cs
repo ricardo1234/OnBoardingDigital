@@ -1,8 +1,7 @@
 ﻿using OnBoardingDigital.Domain.Common;
-using OnBoardingDigital.Domain.Form.ValueObjects;
-using System.Reflection.Metadata;
+using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
-namespace OnBoardingDigital.Domain.Form.Entities;
+namespace OnBoardingDigital.Domain.FormAggregate.Entities;
 
 public sealed class FormField : Entity<FormFieldId>
 {

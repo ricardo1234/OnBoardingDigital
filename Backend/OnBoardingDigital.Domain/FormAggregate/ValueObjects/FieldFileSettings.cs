@@ -1,7 +1,6 @@
 ﻿using OnBoardingDigital.Domain.Common;
-using System.Reflection;
 
-namespace OnBoardingDigital.Domain.Form.ValueObjects;
+namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class FieldFileSettings : ValueObject
 {

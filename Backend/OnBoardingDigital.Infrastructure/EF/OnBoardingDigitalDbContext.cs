@@ -1,5 +1,4 @@
-using OnBoardingDigital.Domain.Form;
-using OnBoardingDigital.Infrastructure.TypeConfigurations;
+using OnBoardingDigital.Domain.FormAggregate;
 using Microsoft.EntityFrameworkCore;
 
 namespace OnBoardingDigital.Infrastructure.EF;

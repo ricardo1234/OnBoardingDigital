@@ -1,8 +1,6 @@
 ﻿using OnBoardingDigital.Domain.Common;
-using OnBoardingDigital.Domain.Form.Entities;
-using System.Xml.Linq;
 
-namespace OnBoardingDigital.Domain.Form.ValueObjects;
+namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class Repeatable : ValueObject
 {

@@ -1,6 +1,6 @@
 ﻿using OnBoardingDigital.Domain.Common;
 
-namespace OnBoardingDigital.Domain.Form.ValueObjects;
+namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class FormFieldId : ValueObject
 {

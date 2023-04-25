@@ -1,7 +1,7 @@
 ﻿using OnBoardingDigital.Domain.Common;
 using System.Data;
 
-namespace OnBoardingDigital.Domain.Form.ValueObjects;
+namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class FieldType : Enumeration
 {

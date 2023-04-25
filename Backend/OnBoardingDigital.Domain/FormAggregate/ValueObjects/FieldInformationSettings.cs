@@ -1,6 +1,6 @@
 ﻿using OnBoardingDigital.Domain.Common;
 
-namespace OnBoardingDigital.Domain.Form.ValueObjects;
+namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class FieldInformationSettings : ValueObject
 {
@@ -11,7 +11,7 @@ public class FieldInformationSettings : ValueObject
         HtmlValue = htmlValue;
     }
 
-    public static FieldInformationSettings CreateNew(string htmlValue) => new(htmlValue);
+    public static FieldInformationSettings Create(string htmlValue) => new(htmlValue);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

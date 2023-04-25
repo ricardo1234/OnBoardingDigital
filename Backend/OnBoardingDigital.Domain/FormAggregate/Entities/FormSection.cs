@@ -1,7 +1,7 @@
 ﻿using OnBoardingDigital.Domain.Common;
-using OnBoardingDigital.Domain.Form.ValueObjects;
+using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
-namespace OnBoardingDigital.Domain.Form.Entities;
+namespace OnBoardingDigital.Domain.FormAggregate.Entities;
 
 public sealed class FormSection : Entity<FormSectionId>
 {

@@ -1,14 +1,14 @@
 ﻿using Microsoft.VisualBasic;
 using OnBoardingDigital.Domain.Common;
 
-namespace OnBoardingDigital.Domain.Form.ValueObjects;
+namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class FieldNumberSettings : ValueObject
 {
-    public int Minimum { get; private set; }
-    public int Maximum { get; private set; }
-    public int RequiredDigits { get; private set; }
-    private FieldNumberSettings(int minimum, int maximum, int requiredDigits)
+    public int? Minimum { get; private set; }
+    public int? Maximum { get; private set; }
+    public int? RequiredDigits { get; private set; }
+    private FieldNumberSettings(int? minimum, int? maximum, int? requiredDigits)
     {
         //Todo: Validations
         Minimum = minimum;
@@ -16,7 +16,7 @@ public class FieldNumberSettings : ValueObject
         RequiredDigits = requiredDigits;
     }
 
-    public static FieldNumberSettings CreateNew(int minimum, int maximum, int requiredDigits) => new(minimum, maximum, requiredDigits);
+    public static FieldNumberSettings CreateNew(int? minimum, int? maximum, int? requiredDigits) => new(minimum, maximum, requiredDigits);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

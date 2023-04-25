@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OnBoardingDigital.Domain.Form;
-using OnBoardingDigital.Domain.Form.Entities;
-using OnBoardingDigital.Domain.Form.ValueObjects;
+using OnBoardingDigital.Domain.FormAggregate;
+using OnBoardingDigital.Domain.FormAggregate.Entities;
+using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 namespace OnBoardingDigital.Infrastructure.TypeConfigurations;
 

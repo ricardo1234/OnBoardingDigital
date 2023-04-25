@@ -1,9 +1,7 @@
-﻿using OnBoardingDigital.Domain.Form;
-using OnBoardingDigital.Domain.Form.Entities;
-using OnBoardingDigital.Domain.Form.ValueObjects;
-using System.Data;
+﻿using OnBoardingDigital.Domain.FormAggregate;
+using OnBoardingDigital.Domain.FormAggregate.Entities;
+using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 using System.Diagnostics.CodeAnalysis;
-using System.Net;
 
 namespace OnBoardingDigital.Infrastructure.EF;
 
@@ -42,6 +40,8 @@ public static class DbContextSeedData
     }
 
     #region SectionsIds
+    private static readonly FormId FormId= FormId.Create(Guid.Parse("b7a6c87c-553d-4a13-ab0d-b8d7f576e8c9"));
+    private static readonly FormSectionId Information = FormSectionId.CreateUnique();
     private static readonly FormSectionId SubscriptionType = FormSectionId.CreateUnique();
     private static readonly FormSectionId PersonalIdentificiation= FormSectionId.CreateUnique();
     private static readonly FormSectionId CompanyIdentificiation = FormSectionId.CreateUnique();
@@ -51,16 +51,28 @@ public static class DbContextSeedData
 
     private static Form GetFormExampleOne()
     {
-        var form = Form.Create("Contrato de Adesão");
 
-        var sectionSubscriptionType = FormSection.Create(SubscriptionType, "Tipo de Cliente", 1, Repeatable.Create());
+        var form = Form.Create(FormId, "Contrato de Adesão");
+
+        var sectionInformation = FormSection.Create(Information, "Condições Gerais", 1, Repeatable.Create());
+        sectionInformation.AddFormField(
+            FormField.CreateInformation(1, true, String.Empty, FieldInformationSettings.Create(@"<h1 style=""color: #5e9ca0;"">You can edit <span style=""color: #2b2301;"">this demo</span> text!</h1>
+<h2 style=""color: #2e6c80;"">How to use the editor:</h2>
+<p>Paste your documents in the visual editor on the left or your HTML code in the source editor in the right. <br />Edit any of the two areas and see the other changing in real time.&nbsp;</p>
+<p>Click the <span style=""background-color: #2b2301; color: #fff; display: inline-block; padding: 3px 10px; font-weight: bold; border-radius: 5px;"">Clean</span> button to clean your source code.</p>
+<p><strong>Save this link into your bookmarks and share it with your friends. It is all FREE! </strong><br /><strong>Enjoy!</strong></p>
+<p><strong>&nbsp;</strong></p>"))
+        );
+        form.AddFormSection(sectionInformation);
+
+        var sectionSubscriptionType = FormSection.Create(SubscriptionType, "Tipo de Cliente", 2, Repeatable.Create());
         sectionSubscriptionType.AddMultipleFormFields(new() {
             FormField.CreateChoice(1, true, "Particular", FieldChoiceSettings.Create("tipoCliente"), PersonalIdentificiation),
             FormField.CreateChoice(2, true, "Empresa", FieldChoiceSettings.Create("tipoCliente"), CompanyIdentificiation),
         });
         form.AddFormSection(sectionSubscriptionType);
 
-        var sectionPersonalIdentificiation = FormSection.Create(PersonalIdentificiation, "Identificação Particular", 2, Repeatable.Create());
+        var sectionPersonalIdentificiation = FormSection.Create(PersonalIdentificiation, "Identificação Particular", 3, Repeatable.Create());
         sectionPersonalIdentificiation.AddMultipleFormFields(new() {
              FormField.CreateText(1, true, "Nome", FieldTextSettings.Create(100,3)),
              FormField.CreateDateTime(2, true, "Data Nascimento", FieldDateTimeSettings.CreateDate(isMaximumToday: true)),
@@ -70,7 +82,7 @@ public static class DbContextSeedData
         });
         form.AddFormSection(sectionPersonalIdentificiation);
 
-        var sectionCompanyIdentificiation = FormSection.Create(CompanyIdentificiation, "Identificação Empresa", 2, Repeatable.Create(true));
+        var sectionCompanyIdentificiation = FormSection.Create(CompanyIdentificiation, "Identificação Empresa", 3, Repeatable.Create(true));
         sectionCompanyIdentificiation.AddMultipleFormFields(new() {
              FormField.CreateText(1, true, "Nome", FieldTextSettings.Create(100,3)),
              FormField.CreateDateTime(2, true, "Data Nascimento", FieldDateTimeSettings.CreateDate(isMaximumToday: true)),
@@ -84,14 +96,14 @@ public static class DbContextSeedData
         });
         form.AddFormSection(sectionCompanyIdentificiation);
 
-        var sectionPersonalFiles = FormSection.Create(PersonalFiles, "Ficheiros Particular", 3, Repeatable.Create());
+        var sectionPersonalFiles = FormSection.Create(PersonalFiles, "Ficheiros Particular", 4, Repeatable.Create());
         sectionPersonalFiles.AddMultipleFormFields(new() {
              FormField.CreateFile(1, true, "C.C ou Passport", FieldFileSettings.Create(new(){ "pdf", "png", "jpeg", "jpg" })),
              FormField.CreateFile(2, true, "Comprovativo IBAN", FieldFileSettings.Create(new(){ "pdf" })),
         });
         form.AddFormSection(sectionPersonalFiles);
 
-        var sectionPersonalCompany = FormSection.Create(PersonalCompany, "Ficheiros Empresa", 3, Repeatable.Create());
+        var sectionPersonalCompany = FormSection.Create(PersonalCompany, "Ficheiros Empresa", 4, Repeatable.Create());
         sectionPersonalCompany.AddMultipleFormFields(new() {
              FormField.CreateFile(1, true, "Comprovativo IBAN", FieldFileSettings.Create(new(){ "pdf" })),
         });
