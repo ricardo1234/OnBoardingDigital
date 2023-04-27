@@ -7,5 +7,10 @@ Content-Type: application/json
 
 ### Call Get one
 
-GET {{host}}/api/form/
+GET {{host}}/api/form/{{FormId}}
+Content-Type: application/json
+
+### Call Exists
+
+GET {{host}}/api/form/exists/{{FormId}}
 Content-Type: application/json
