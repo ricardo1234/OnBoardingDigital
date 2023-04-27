@@ -1,8 +1,14 @@
 # Get All Forms
 
-```text
-GET /api/form
-```
+## Url
+
+    GET /api/form
+
+## Status Codes
+
+- 200 - OK
+
+## Success Response
 
 ```json
 [

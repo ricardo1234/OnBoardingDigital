@@ -1,8 +1,15 @@
 # Get Form
 
-```text
-  GET /api/form/{id}
-```
+## Url
+
+    GET /api/form/{id}
+
+## Status Codes
+
+- 200 - OK
+- 404 - Not Found
+
+## Success Response
 
 ```json
   {
