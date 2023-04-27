@@ -4,23 +4,23 @@ using OnBoardingDigital.Domain.FormAggregate;
 using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 using OnBoardingDigital.Domain.Repositories;
 
-namespace OnBoardingDigital.API.Application.Queries.GetForm;
+namespace OnBoardingDigital.API.Application.Queries.Forms;
 
-public class GetFormQueryHandler : IRequestHandler<GetFormQuery, ErrorOr<Form>>
+public class ExistFormQueryHandler : IRequestHandler<ExistFormQuery, ErrorOr<bool>>
 {
     private readonly IFormRepository formRepository;
 
-    public GetFormQueryHandler(IFormRepository formRepository)
+    public ExistFormQueryHandler(IFormRepository formRepository)
     {
         this.formRepository = formRepository;
     }
 
-    public async Task<ErrorOr<Form>> Handle(GetFormQuery request, CancellationToken cancellationToken)
+    public async Task<ErrorOr<bool>> Handle(ExistFormQuery request, CancellationToken cancellationToken)
     {
         var formId = FormId.Create(request.id);
-        var form = await formRepository.GetByIdAsync(formId);
+        var form = await formRepository.FormExistsAsync(formId);
 
-        if (form is null)
+        if (!form)
             return Error.NotFound("Form.NotFound", "Form was not found.");
 
         return form;

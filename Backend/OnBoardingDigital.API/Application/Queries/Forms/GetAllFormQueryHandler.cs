@@ -1,10 +1,9 @@
 ﻿using ErrorOr;
 using MediatR;
 using OnBoardingDigital.Domain.FormAggregate;
-using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 using OnBoardingDigital.Domain.Repositories;
 
-namespace OnBoardingDigital.API.Application.Queries.GetForm;
+namespace OnBoardingDigital.API.Application.Queries.Forms;
 
 public class GetAllFormQueryHandler : IRequestHandler<GetAllFormQuery, ErrorOr<List<Form>>>
 {

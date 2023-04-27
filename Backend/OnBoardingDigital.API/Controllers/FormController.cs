@@ -2,7 +2,7 @@
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using OnBoardingDigital.API.Application.Queries.GetForm;
+using OnBoardingDigital.API.Application.Queries.Forms;
 using OnBoardingDigital.Contracts.Form;
 using OnBoardingDigital.Domain.FormAggregate;
 
@@ -36,12 +36,31 @@ namespace OnBoardingDigital.API.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(string id)
         {
-            var query = new GetFormQuery(Guid.Parse(id));
+            if (!Guid.TryParse(id, out Guid _id))
+                return BadRequest("The field id is not a valid Guid.");
+            
+            var query = new GetFormQuery(_id);
 
             var getResult = await _mediator.Send(query);
 
             if (!getResult.IsError)
                 return Ok(_mapper.Map<FormReponse>(getResult.Value));
+
+            return NotFound(getResult.FirstError.Description);
+        }
+        // GET api/<FormController>/exists/5
+        [HttpGet("exists/{id}")]
+        public async Task<IActionResult> Exists(string id)
+        {
+            if (!Guid.TryParse(id, out Guid _id))
+                return BadRequest("The field id is not a valid Guid."); 
+
+            var query = new ExistFormQuery(_id);
+
+            var getResult = await _mediator.Send(query);
+
+            if (!getResult.IsError)
+                return Ok();
 
             return NotFound(getResult.FirstError.Description);
         }

@@ -6,4 +6,5 @@ namespace OnBoardingDigital.Domain.Repositories;
 
 public interface IFormRepository : IRepository<Form, FormId>
 {
+    Task<bool> FormExistsAsync(FormId id);
 }
