@@ -4,6 +4,7 @@ import { FormService } from '../services/form.service';
 import { FormResponse, FormSectionResponse } from '../Dtos/formResponse';
 import { NbStepperComponent, NbToggleComponent } from '@nebular/theme';
 import { SubscriptionRequest, subscriptionAnswerRequest } from '../Dtos/subscriptionRequest';
+import { SubscriptionService } from '../services/subscription.service';
 
 @Component({
   selector: 'app-fill-form',
@@ -24,7 +25,7 @@ export class FillFormComponent {
 
   formData: FormData;
 
-  constructor(private activatedRoute: ActivatedRoute, private formService: FormService) {  this.formData = new FormData();}
+  constructor(private activatedRoute: ActivatedRoute, private formService: FormService, private subscriptionService: SubscriptionService) {  this.formData = new FormData();}
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -255,6 +256,22 @@ export class FillFormComponent {
     let index = parseInt(id.split('_')[1]);
     this.subscriptionRequest.answers.push({fieldId: fieldId, answer: value, index: index+1} as subscriptionAnswerRequest);
   }
+
+  saveSubscription() : void {
+    //this.loading = true;
+
+    this.subscriptionService.save(this.subscriptionRequest, this.formData).subscribe({
+      next: () => {
+        console.log("success");
+      },
+      error: () => {
+        console.log("true");
+       // this.error = true;
+        //this.loading = false;
+      }
+    });
+  }
+
 
    //#region Identification
    validateIdentification(){

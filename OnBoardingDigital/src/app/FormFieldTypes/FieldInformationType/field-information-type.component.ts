@@ -3,7 +3,7 @@ import { FormFieldInformationSettingsResponse } from 'src/app/Dtos/formResponse'
 
 @Component({
   selector: 'field-information-type',
-  template: `<div [innerHTML]="configuration?.htmlValue" ></div>`,
+  template: `<div class="DynamicControl" [innerHTML]="configuration?.htmlValue" ></div>`,
   styles: [
   ]
 })

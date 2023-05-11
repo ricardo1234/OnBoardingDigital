@@ -3,7 +3,7 @@ import { FormFieldFileSettingsResponse } from 'src/app/Dtos/formResponse';
 
 @Component({
   selector: 'field-file-type',
-  template: `<div> <label>{{name}}</label><input type="file"
+  template: `<div class="DynamicControl"> <label>{{name}}</label><input type="file"
   class="form-control"
   id="{{id}}"
   [required]="isRequired"

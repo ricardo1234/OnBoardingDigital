@@ -3,9 +3,12 @@ import { FieldOptionObjectResponse, FormFieldOptionsSettingsResponse } from 'src
 
 @Component({
   selector: 'field-options-type',
-  template: ` <nb-select [placeholder]="name" [id]="id" fullWidth (selectedChange)="validate()" [status]="status">
+  template: `<div class="DynamicControl">
+              <label>{{name}}</label>
+              <nb-select [placeholder]="name" [id]="id" fullWidth (selectedChange)="validate()" [status]="status">
                 <nb-option *ngFor="let option of configuration?.options" [value]="option.value">{{option.text}}</nb-option>
-              </nb-select>`,
+              </nb-select>
+            </div>`,
   styles: [
   ]
 })

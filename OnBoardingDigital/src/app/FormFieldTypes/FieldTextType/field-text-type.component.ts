@@ -3,7 +3,9 @@ import { FormFieldTextSettingsResponse } from 'src/app/Dtos/formResponse';
 
 @Component({
   selector: 'field-text-type',
-  template: `<div><input type="text"
+  template: `<div class="DynamicControl">
+  <label>{{name}}</label>
+  <input type="text"
   pattern="{{configuration?.validationExpression}}"
   placeholder="{{name}}"
   class="form-control"

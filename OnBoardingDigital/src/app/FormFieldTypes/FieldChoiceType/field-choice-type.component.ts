@@ -3,7 +3,7 @@ import { FormFieldChoiceSettingsResponse } from 'src/app/Dtos/formResponse';
 
 @Component({
   selector: 'field-choice-type',
-  template: `<div> <nb-toggle [id]="id" fullWidth [status]="status" (checkedChange)="validate()">{{name}}</nb-toggle> </div>`,
+  template: `<div class="DynamicControl"> <nb-toggle [id]="id" fullWidth [status]="status" (checkedChange)="validate()">{{name}}</nb-toggle> </div>`,
   styles: [
   ]
 })
