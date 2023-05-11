@@ -5,13 +5,16 @@ namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 public class FieldChoiceSettings : ValueObject
 {
     public string Group { get; private set; }
-    private FieldChoiceSettings(string group)
+    public FormSectionId? NextSection { get; private set; }
+
+    private FieldChoiceSettings(string group, FormSectionId? nextSection)
     {
         //Todo: Validations
         Group = group;
+        NextSection = nextSection;
     }
 
-    public static FieldChoiceSettings Create(string group) => new(group);
+    public static FieldChoiceSettings Create(string group, FormSectionId? nextSection) => new(group, nextSection);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

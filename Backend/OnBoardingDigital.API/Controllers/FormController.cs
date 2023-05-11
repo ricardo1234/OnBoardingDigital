@@ -44,7 +44,7 @@ namespace OnBoardingDigital.API.Controllers
             var getResult = await _mediator.Send(query);
 
             if (!getResult.IsError)
-                return Ok(_mapper.Map<FormReponse>(getResult.Value));
+                return Ok(_mapper.Map<FormResponse>(getResult.Value));
 
             return NotFound(getResult.FirstError.Description);
         }
