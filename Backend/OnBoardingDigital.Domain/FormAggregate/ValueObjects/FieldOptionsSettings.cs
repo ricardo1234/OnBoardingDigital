@@ -4,15 +4,15 @@ namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
 public class FieldOptionsSettings : ValueObject
 {
-    private List<string> _options;
-    public IReadOnlyList<string> Options => _options.AsReadOnly();
-    private FieldOptionsSettings(List<string> options)
+    private List<FieldOptionObject> _options;
+    public IReadOnlyList<FieldOptionObject> Options => _options.AsReadOnly();
+    private FieldOptionsSettings(List<FieldOptionObject> options)
     {
         //Todo: Validations
         _options = options;
     }
 
-    public static FieldOptionsSettings Create(List<string> options) => new(options);
+    public static FieldOptionsSettings Create(List<FieldOptionObject> options) => new(options);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

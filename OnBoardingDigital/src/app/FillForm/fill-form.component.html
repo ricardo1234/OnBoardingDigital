@@ -1,0 +1,99 @@
+<nb-layout [nbSpinner]="loading"
+      nbSpinnerStatus="info"
+      nbSpinnerSize="giant"
+      nbSpinnerMessage="Estamos a construir o formulário para si...">
+      <nb-layout-header *ngIf="!error && formResponse!=null"><h4>{{formResponse.name}}</h4></nb-layout-header>
+      <nb-layout-column *ngIf="error" >
+        <nb-card status="danger">
+          <nb-card-header>Erro</nb-card-header>
+          <nb-card-body>
+            Ocorreu um erro ao carregar o formulário. Por favor tente novamente mais tarde, ou contacte o administrador.
+          </nb-card-body>
+        </nb-card>
+      </nb-layout-column>
+      <nb-layout-column *ngIf="!error && formResponse!=null" >
+            <nb-stepper #sectionSteps orientation="horizontal" disableStepNavigation>
+              <nb-step label="Identificação"  >
+                  <nb-layout>
+                    <nb-layout-header>
+                      <button class="btnChange" shape="semi-round" status="warning" nbButton disabled nbStepperNext>Voltar</button>
+                      <button class="btnChange" shape="semi-round" status="primary" nbButton (click)="validateIdentification()">Avançar</button>
+                    </nb-layout-header>
+                    <nb-layout-column [start]="true">
+                      <div class="input-group" >
+                        <input  id="emailIdentification"
+                                type="email"
+                                #emailIdentification
+                                width="100%"
+                                placeholder="Email"
+                                class="form-control"
+                                nbInput
+                                fullWidth
+                                (change)="changeEmail()"
+                                [status]="emailStatus">
+                        <b>Por favor insira o seu email para poder ser enviado o contrato.</b>
+                      </div>
+                    </nb-layout-column>
+                    <nb-layout-column >
+                      <div class="input-group" >
+                        <nb-toggle status="danger" #chkRgpd (checkedChange)="changeStatusRGPD()" >
+                          Aceito os termos, condições e política privacidade.
+                        </nb-toggle>
+                      </div>
+                    </nb-layout-column>
+                  </nb-layout>
+              </nb-step>
+              <ng-template ngFor let-section [ngForOf]="sections">
+                <nb-step label="{{section.name}}"  [id]=section.id >
+                <nb-layout>
+                    <nb-layout-header>
+                      <button class="btnChange" shape="semi-round" status="warning" nbButton nbStepperPrevious>Voltar</button>
+                      <button class="btnChange" shape="semi-round" status="primary" nbButton (click)="changeSection(section.id)">Avançar</button>
+                      <button *ngIf="section.canRepeat" class="btnChange" shape="semi-round" status="primary" nbButton (click)="addAnswerToSection(section.id)">Adicionar Novo</button>
+                      <button *ngIf="section.canRepeat" class="btnChange" shape="semi-round" status="danger" nbButton (click)="removeAnswerToSection(section.id)">Remover Ultimo</button>
+                    </nb-layout-header>
+                      <nb-layout-column>
+                        <ng-template ngFor let-field [ngForOf]="section.fields" *ngIf="!section.canRepeat" >
+                          <div [ngSwitch]="field.type.id" >
+                            <field-information-type *ngSwitchCase="73" [configuration]="field.informationSettings"></field-information-type>
+                            <field-options-type *ngSwitchCase="79" [id]="field.id" [name]="field.description" [isRequired]="field.required" [configuration]="field.optionsSettings"></field-options-type>
+                            <field-text-type *ngSwitchCase="84" [id]="field.id" [name]="field.description" [isRequired]="field.required" [configuration]="field.textSettings"></field-text-type>
+                            <field-file-type *ngSwitchCase="70" [id]="field.id" [name]="field.description" [isRequired]="field.required" [configuration]="field.fileSettings"></field-file-type>
+                            <field-choice-type *ngSwitchCase="67" [id]="field.id" [name]="field.description" [isRequired]="field.required" [configuration]="field.choiceSettings"></field-choice-type>
+                          </div>
+                        </ng-template>
+                        <nb-accordion multi *ngIf="section.canRepeat">
+                            <nb-accordion-item *ngFor="let item of section.answersIndex; index as i" expanded="true">
+                              <nb-accordion-item-header>{{section.name}} #{{i+1}}</nb-accordion-item-header>
+                              <nb-accordion-item-body>
+                                <ng-template ngFor let-field [ngForOf]="section.fields">
+                                  <div [ngSwitch]="field.type.id" >
+                                    <field-information-type *ngSwitchCase="73" [configuration]="field.informationSettings"></field-information-type>
+                                    <field-options-type *ngSwitchCase="79" [id]="field.id + '_' + i" [name]="field.description" [isRequired]="field.required" [configuration]="field.optionsSettings"></field-options-type>
+                                    <field-text-type *ngSwitchCase="84" [id]="field.id + '_' + i" [name]="field.description" [isRequired]="field.required" [configuration]="field.textSettings"></field-text-type>
+                                    <field-file-type *ngSwitchCase="70" [id]="field.id + '_' + i" [name]="field.description" [isRequired]="field.required" [configuration]="field.fileSettings"></field-file-type>
+                                    <field-choice-type *ngSwitchCase="67" [id]="field.id + '_' + i" [name]="field.description" [isRequired]="field.required" [configuration]="field.choiceSettings"></field-choice-type>
+                                  </div>
+                                </ng-template>
+                              </nb-accordion-item-body>
+                            </nb-accordion-item>
+                        </nb-accordion>
+                      </nb-layout-column>
+                    </nb-layout>
+                </nb-step>
+              </ng-template>
+              <nb-step [stepControl]="identification" label="Final"  >
+                <form #identification="ngForm" class="step-container">
+                  <nb-layout>
+                    <nb-layout-header>
+                      <button class="btnChange" shape="semi-round" status="primary" nbButton (click)="saveSubscription()">Gravar o Contrato</button>
+                    </nb-layout-header>
+                    <nb-layout-column>
+                      <label><b>Obrigado por preencher os seus dados, irá receber o contrato no seu email em breve.</b></label>
+                    </nb-layout-column>
+                  </nb-layout>
+               </form>
+              </nb-step>
+            </nb-stepper>
+      </nb-layout-column>
+</nb-layout>

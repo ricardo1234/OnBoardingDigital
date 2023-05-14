@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using OnBoardingDigital.Domain.FormAggregate;
 using OnBoardingDigital.Domain.FormAggregate.Entities;
 using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
+using System.Text.Json;
 
 namespace OnBoardingDigital.Infrastructure.TypeConfigurations;
 
@@ -24,6 +25,13 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
             id => id.Value,
             value => FormId.Create(value));
 
+        builder.Property(e => e.FirstSection)
+            .IsRequired()
+            .ValueGeneratedNever()
+            .HasConversion(
+                 nq => nq.Value,
+                 value => FormSectionId.Create(value));
+
         builder.Property(e => e.Name);
 
         builder.OwnsMany(e => e.Sections, sb => ConfigureFormSectionTable(sb));
@@ -40,6 +48,13 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
             .HasConversion(
                 id => id.Value,
                 value => FormSectionId.Create(value));
+
+        builder.Property(e => e.DefaultNextSection)
+            .IsRequired(false)
+            .ValueGeneratedNever()
+            .HasConversion(
+                 nq => nq.Value,
+                 value => FormSectionId.Create(value));
 
         builder.Property(e => e.Name);
 
@@ -70,12 +85,12 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
                t => t.Id,
                value => FieldType.From(value));
 
-        builder.Property(e => e.NextQuestion)
-            .IsRequired(false)
-            .ValueGeneratedNever()
-            .HasConversion(
-             nq => nq.Value,
-             value => FormSectionId.Create(value));
+        //builder.Property(e => e.NextSection)
+        //    .IsRequired(false)
+        //    .ValueGeneratedNever()
+        //    .HasConversion(
+        //     nq => nq.Value,
+        //     value => FormSectionId.Create(value));
 
         builder.OwnsOne(e => e.FileSettings, fb =>
         {
@@ -86,16 +101,30 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
                 );
         });
         builder.OwnsOne(e => e.TextSettings);
-        builder.OwnsOne(e => e.ChoiceSettings);
+        builder.OwnsOne(e => e.ChoiceSettings, cb =>
+        {
+            cb.Property(e => e.NextSection)
+            .IsRequired(false)
+            .ValueGeneratedNever()
+            .HasConversion(
+                 nq => nq.Value,
+                 value => FormSectionId.Create(value));
+        });
         builder.OwnsOne(e => e.NumberSettings);
         builder.OwnsOne(e => e.OptionsSettings, ob =>
         {
-            ob.Property(e => e.Options)
-            .HasConversion(
-                e => string.Join(_separator, e),
-                value => value.Split(_separator, StringSplitOptions.RemoveEmptyEntries).ToList()
-                );
+            ob.OwnsMany(e => e.Options, ovb => {
+                ovb.Property(e => e.NextSection)
+                .IsRequired(false)
+                .ValueGeneratedNever()
+                .HasConversion(
+                     nq => nq.Value,
+                     value => FormSectionId.Create(value));
+            });
+            ob.Navigation(e => e.Options).Metadata.SetField("_options");
+            ob.Navigation(e => e.Options).UsePropertyAccessMode(PropertyAccessMode.Field);
         });
+
         builder.OwnsOne(e => e.DateTimeSettings);
         builder.OwnsOne(e => e.InformationSettings);
     }
