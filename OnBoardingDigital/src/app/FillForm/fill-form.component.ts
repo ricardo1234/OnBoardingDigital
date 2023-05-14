@@ -258,16 +258,17 @@ export class FillFormComponent {
   }
 
   saveSubscription() : void {
-    //this.loading = true;
+    this.loading = true;
 
     this.subscriptionService.save(this.subscriptionRequest, this.formData).subscribe({
       next: () => {
-        console.log("success");
+        this.formData.delete('subscription');
+        this.loading = false;
       },
       error: () => {
-        console.log("true");
-       // this.error = true;
-        //this.loading = false;
+        this.error = true;
+        this.loading = false;
+        this.formData.delete('subscription');
       }
     });
   }

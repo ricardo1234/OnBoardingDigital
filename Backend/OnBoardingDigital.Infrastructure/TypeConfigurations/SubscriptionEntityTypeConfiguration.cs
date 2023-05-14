@@ -66,7 +66,11 @@ public sealed class SubscriptionEntityTypeConfiguration : IEntityTypeConfigurati
                 .IsRequired(false);
 
             sb.Property(e => e.FileBytes)
-                .IsRequired(false);
+                .IsRequired(false)
+                .HasConversion(
+                    e => string.Join<byte>(_separator, e.ToList()),
+                    value => value.Split(_separator, StringSplitOptions.RemoveEmptyEntries).Select(b => byte.Parse(b)).ToArray()
+                );
 
             sb.Property(e => e.OptionsValue)
                 .IsRequired(false);

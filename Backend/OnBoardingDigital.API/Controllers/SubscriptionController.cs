@@ -1,9 +1,11 @@
-﻿using MediatR;
+﻿using ErrorOr;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using OnBoardingDigital.API.Application.Commands.Subscriptions;
 using OnBoardingDigital.API.Application.Queries.Forms;
 using OnBoardingDigital.Contracts.Subscription;
+using OnBoardingDigital.Domain.Repositories;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,18 +16,21 @@ namespace OnBoardingDigital.API.Controllers
     public class SubscriptionController : ControllerBase
     {
         private readonly ISender _mediator;
+        private readonly ISubscriptionRepository _repo;
 
-        public SubscriptionController(ISender mediator)
+        public SubscriptionController(ISender mediator, ISubscriptionRepository repo)
         {
             _mediator = mediator;
+            _repo = repo;
         }
 
-        //// GET: api/<SubscriptionController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return new string[] { "value1", "value2" };
-        //}
+        // GET: api/<SubscriptionController>
+        [HttpGet]
+        public async Task<IActionResult> Get()
+        {
+            var result = await _repo.GetAllAsync();
+            return Ok(result);
+        }
 
         //// GET api/<SubscriptionController>/5
         //[HttpGet("{id}")]
@@ -55,19 +60,26 @@ namespace OnBoardingDigital.API.Controllers
             {
                 if (file.Length > 0)
                 {
-                    using (var ms = new MemoryStream())
-                    {
-                        file.CopyTo(ms);
-                        var fileBytes = ms.ToArray();
+                    using var ms = new MemoryStream();
+                    file.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
 
-                        filesList.Add(new FileRequest(file.Name, file.FileName, file.ContentType, fileBytes));
-                    }
+                    filesList.Add(new FileRequest(file.Name, file.FileName, file.FileName.Split('.').Last(), fileBytes));
                 }
             }
 
-            var getResult = await _mediator.Send(new PostSubscriptionCommand(data, filesList));
+            var result = await _mediator.Send(new PostSubscriptionCommand(data, filesList));
 
-            return Ok(true);
+            if (!result.IsError)
+                return Ok(result.Value);
+
+            return result.FirstError.Type switch
+            {
+                ErrorType.NotFound => NotFound(result.FirstError.Description),
+                ErrorType.Failure => Problem(result.FirstError.Description),
+                ErrorType.Validation => ValidationProblem(result.FirstError.Description),
+                _ => Problem("Could not process the request.")
+            };
         }
 
         //// PUT api/<SubscriptionController>/5
