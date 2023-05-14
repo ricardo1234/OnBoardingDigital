@@ -8,15 +8,17 @@ public sealed class Form : AggregateRoot<FormId, Guid>
 {
     private readonly List<FormSection> _sections = new();
     public string Name { get; private set; }
+    public FormSectionId FirstSection { get; private set; }
     public IReadOnlyList<FormSection> Sections => _sections.AsReadOnly();
 
-    private Form(FormId id, string name) : base(id)
+    private Form(FormId id, string name, FormSectionId firstSection) : base(id)
     {
         Name = name;
+        FirstSection = firstSection;
     }
 
-    public static Form CreateNew(string name) => new(FormId.CreateUnique(), name);
-    public static Form Create(FormId id, string name) => new(id, name);
+    public static Form CreateNew(string name, FormSectionId firstSection) => new(FormId.CreateUnique(), name, firstSection);
+    public static Form Create(FormId id, string name, FormSectionId firstSection) => new(id, name, firstSection);
 
     public void AddFormSection(FormSection section)
     {

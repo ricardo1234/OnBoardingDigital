@@ -52,9 +52,9 @@ public static class DbContextSeedData
     private static Form GetFormExampleOne()
     {
 
-        var form = Form.Create(FormId, "Contrato de Adesão");
+        var form = Form.Create(FormId, "Contrato de Adesão", Information);
 
-        var sectionInformation = FormSection.Create(Information, "Condições Gerais", 1, Repeatable.Create());
+        var sectionInformation = FormSection.Create(Information, "Condições Gerais", 1, Repeatable.Create(), SubscriptionType);
         sectionInformation.AddFormField(
             FormField.CreateInformation(1, true, String.Empty, FieldInformationSettings.Create(@"<h1 style=""color: #5e9ca0;"">You can edit <span style=""color: #2b2301;"">this demo</span> text!</h1>
 <h2 style=""color: #2e6c80;"">How to use the editor:</h2>
@@ -65,24 +65,27 @@ public static class DbContextSeedData
         );
         form.AddFormSection(sectionInformation);
 
-        var sectionSubscriptionType = FormSection.Create(SubscriptionType, "Tipo de Cliente", 2, Repeatable.Create());
+        var sectionSubscriptionType = FormSection.Create(SubscriptionType, "Tipo de Cliente", 2, Repeatable.Create(), null);
         sectionSubscriptionType.AddMultipleFormFields(new() {
-            FormField.CreateChoice(1, true, "Particular", FieldChoiceSettings.Create("tipoCliente"), PersonalIdentificiation),
-            FormField.CreateChoice(2, true, "Empresa", FieldChoiceSettings.Create("tipoCliente"), CompanyIdentificiation),
+            FormField.CreateOptions(1, true, "Tipo Cliente", FieldOptionsSettings.Create(new()
+            {
+                FieldOptionObject.Create("Particular", "Particular", PersonalIdentificiation),
+                FieldOptionObject.Create("Empresa", "Empresa", CompanyIdentificiation),
+            }))
         });
         form.AddFormSection(sectionSubscriptionType);
 
-        var sectionPersonalIdentificiation = FormSection.Create(PersonalIdentificiation, "Identificação Particular", 3, Repeatable.Create());
+        var sectionPersonalIdentificiation = FormSection.Create(PersonalIdentificiation, "Identificação Particular", 3, Repeatable.Create(), PersonalFiles);
         sectionPersonalIdentificiation.AddMultipleFormFields(new() {
              FormField.CreateText(1, true, "Nome", FieldTextSettings.Create(100,3)),
              FormField.CreateDateTime(2, true, "Data Nascimento", FieldDateTimeSettings.CreateDate(isMaximumToday: true)),
-             FormField.CreateText(3, true, "Nº Telemóvel", FieldTextSettings.CreateWithValidation(9,15, "(\\+(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\\d{1,14})|\\d{9}$")),
-             FormField.CreateText(4, true, "Email", FieldTextSettings.CreateWithValidation(6,100, "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$")),
+             FormField.CreateText(3, true, "Nº Telemóvel", FieldTextSettings.CreateWithValidation(15,9, "(\\+(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\\d{1,14})|\\d{9}$")),
+             FormField.CreateText(4, true, "Email", FieldTextSettings.CreateWithValidation(100, 6, "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$")),
              FormField.CreateText(5, true, "NIF", FieldTextSettings.Create(9,9)),
         });
         form.AddFormSection(sectionPersonalIdentificiation);
 
-        var sectionCompanyIdentificiation = FormSection.Create(CompanyIdentificiation, "Identificação Empresa", 3, Repeatable.Create(true));
+        var sectionCompanyIdentificiation = FormSection.Create(CompanyIdentificiation, "Identificação Empresa", 3, Repeatable.Create(true), PersonalCompany);
         sectionCompanyIdentificiation.AddMultipleFormFields(new() {
              FormField.CreateText(1, true, "Nome", FieldTextSettings.Create(100,3)),
              FormField.CreateDateTime(2, true, "Data Nascimento", FieldDateTimeSettings.CreateDate(isMaximumToday: true)),
@@ -92,18 +95,18 @@ public static class DbContextSeedData
              FormField.CreateText(6, true, "Cargo", FieldTextSettings.Create()),
              FormField.CreateText(7, true, "Naturalidade", FieldTextSettings.Create()),
              FormField.CreateText(8, true, "Nacionalidade", FieldTextSettings.Create()),
-             FormField.CreateChoice(9, true, "PEP - Pessoa Exposta Politicamente", FieldChoiceSettings.Create("pep")),
+             FormField.CreateChoice(9, false, "PEP - Pessoa Exposta Politicamente", FieldChoiceSettings.Create("pep", null)),
         });
         form.AddFormSection(sectionCompanyIdentificiation);
 
-        var sectionPersonalFiles = FormSection.Create(PersonalFiles, "Ficheiros Particular", 4, Repeatable.Create());
+        var sectionPersonalFiles = FormSection.Create(PersonalFiles, "Ficheiros Particular", 4, Repeatable.Create(), null);
         sectionPersonalFiles.AddMultipleFormFields(new() {
              FormField.CreateFile(1, true, "C.C ou Passport", FieldFileSettings.Create(new(){ "pdf", "png", "jpeg", "jpg" })),
              FormField.CreateFile(2, true, "Comprovativo IBAN", FieldFileSettings.Create(new(){ "pdf" })),
         });
         form.AddFormSection(sectionPersonalFiles);
 
-        var sectionPersonalCompany = FormSection.Create(PersonalCompany, "Ficheiros Empresa", 4, Repeatable.Create());
+        var sectionPersonalCompany = FormSection.Create(PersonalCompany, "Ficheiros Empresa", 4, Repeatable.Create(), null);
         sectionPersonalCompany.AddMultipleFormFields(new() {
              FormField.CreateFile(1, true, "Comprovativo IBAN", FieldFileSettings.Create(new(){ "pdf" })),
         });
