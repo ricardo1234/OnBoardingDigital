@@ -25,6 +25,7 @@ public static class DependencyInjection
 
         //Add Repository Dependencies Example:
         services.AddScoped<IFormRepository, FormRepository>();
+        services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
         return services;
     }

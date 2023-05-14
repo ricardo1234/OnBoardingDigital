@@ -40,7 +40,7 @@ public static class DbContextSeedData
     }
 
     #region SectionsIds
-    private static readonly FormId FormId= FormId.Create(Guid.Parse("b7a6c87c-553d-4a13-ab0d-b8d7f576e8c9"));
+    private static readonly FormId FormId = FormId.Create(Guid.Parse("b7a6c87c-553d-4a13-ab0d-b8d7f576e8c9"));
     private static readonly FormSectionId Information = FormSectionId.CreateUnique();
     private static readonly FormSectionId SubscriptionType = FormSectionId.CreateUnique();
     private static readonly FormSectionId PersonalIdentificiation= FormSectionId.CreateUnique();
@@ -78,7 +78,6 @@ public static class DbContextSeedData
         var sectionPersonalIdentificiation = FormSection.Create(PersonalIdentificiation, "Identificação Particular", 3, Repeatable.Create(), PersonalFiles);
         sectionPersonalIdentificiation.AddMultipleFormFields(new() {
              FormField.CreateText(1, true, "Nome", FieldTextSettings.Create(100,3)),
-             FormField.CreateDateTime(2, true, "Data Nascimento", FieldDateTimeSettings.CreateDate(isMaximumToday: true)),
              FormField.CreateText(3, true, "Nº Telemóvel", FieldTextSettings.CreateWithValidation(15,9, "(\\+(9[976]\\d|8[987530]\\d|6[987]\\d|5[90]\\d|42\\d|3[875]\\d|2[98654321]\\d|9[8543210]|8[6421]|6[6543210]|5[87654321]|4[987654310]|3[9643210]|2[70]|7|1)\\d{1,14})|\\d{9}$")),
              FormField.CreateText(4, true, "Email", FieldTextSettings.CreateWithValidation(100, 6, "^\\w+([\\.-]?\\w+)*@\\w+([\\.-]?\\w+)*(\\.\\w{2,3})+$")),
              FormField.CreateText(5, true, "NIF", FieldTextSettings.Create(9,9)),
@@ -88,9 +87,7 @@ public static class DbContextSeedData
         var sectionCompanyIdentificiation = FormSection.Create(CompanyIdentificiation, "Identificação Empresa", 3, Repeatable.Create(true), PersonalCompany);
         sectionCompanyIdentificiation.AddMultipleFormFields(new() {
              FormField.CreateText(1, true, "Nome", FieldTextSettings.Create(100,3)),
-             FormField.CreateDateTime(2, true, "Data Nascimento", FieldDateTimeSettings.CreateDate(isMaximumToday: true)),
              FormField.CreateText(3, true, "C.C.", FieldTextSettings.Create(8,8)),
-             FormField.CreateDateTime(4, true, "Validade C.C.", FieldDateTimeSettings.CreateDate(isMinimumToday: true)),
              FormField.CreateText(5, true, "NIF", FieldTextSettings.Create(9,9)),
              FormField.CreateText(6, true, "Cargo", FieldTextSettings.Create()),
              FormField.CreateText(7, true, "Naturalidade", FieldTextSettings.Create()),

@@ -1,5 +1,6 @@
 using OnBoardingDigital.Domain.FormAggregate;
 using Microsoft.EntityFrameworkCore;
+using OnBoardingDigital.Domain.SubscriptionAggregate;
 
 namespace OnBoardingDigital.Infrastructure.EF;
 
@@ -9,9 +10,14 @@ namespace OnBoardingDigital.Infrastructure.EF;
 public sealed class OnBoardingDigitalDbContext : DbContext
 {
     /// <summary>
-    /// Delivery entities.
+    /// Form entities.
     /// </summary>
     public DbSet<Form> Forms { get; set; }
+
+    /// <summary>
+    /// Subscription entities.
+    /// </summary>
+    public DbSet<Subscription> Subscriptions { get; set; }
 
     /// <summary>
     /// Initializes a new instance of <see cref="OnBoardingDigitalDbContext"/>

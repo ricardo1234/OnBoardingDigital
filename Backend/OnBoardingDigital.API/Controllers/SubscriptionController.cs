@@ -65,9 +65,7 @@ namespace OnBoardingDigital.API.Controllers
                 }
             }
 
-
             var getResult = await _mediator.Send(new PostSubscriptionCommand(data, filesList));
-
 
             return Ok(true);
         }

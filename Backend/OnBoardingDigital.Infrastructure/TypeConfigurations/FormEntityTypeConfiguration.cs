@@ -125,7 +125,6 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
             ob.Navigation(e => e.Options).UsePropertyAccessMode(PropertyAccessMode.Field);
         });
 
-        builder.OwnsOne(e => e.DateTimeSettings);
         builder.OwnsOne(e => e.InformationSettings);
     }
 }
