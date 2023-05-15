@@ -14,6 +14,7 @@ public class SubscriptionId : AggregateRootId<Guid>
     public static SubscriptionId CreateUnique() => new SubscriptionId(Guid.NewGuid());
 
     public static SubscriptionId Create(Guid value) => new SubscriptionId(value);
+    public static SubscriptionId CreateFromString(string value) => new SubscriptionId(Guid.Parse(value));
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

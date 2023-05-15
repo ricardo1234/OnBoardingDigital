@@ -6,4 +6,5 @@ namespace OnBoardingDigital.Domain.Repositories;
 
 public interface ISubscriptionRepository : IRepository<Subscription, SubscriptionId>
 {
+    public Task<List<Subscription>> GetByEmailAsync(string email);
 }

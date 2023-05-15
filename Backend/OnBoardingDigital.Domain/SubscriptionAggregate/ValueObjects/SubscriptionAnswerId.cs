@@ -14,6 +14,7 @@ public sealed class SubscriptionAnswerId : AggregateRootId<Guid>
     public static SubscriptionAnswerId CreateUnique() => new SubscriptionAnswerId(Guid.NewGuid());
 
     public static SubscriptionAnswerId Create(Guid value) => new SubscriptionAnswerId(value);
+    public static SubscriptionAnswerId CreateFromString(string value) => new SubscriptionAnswerId(Guid.Parse(value));
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
