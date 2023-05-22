@@ -15,6 +15,7 @@ import { FieldInformationTypeComponent } from './FormFieldTypes/FieldInformation
 import { FieldChoiceTypeComponent } from './FormFieldTypes/FieldChoiceType/field-choice-type.component';
 import { FieldOptionsTypeComponent } from './FormFieldTypes/FieldOptionsType/field-options-type.component';
 import { FieldFileTypeComponent } from './FormFieldTypes/FieldFileType/field-file-type.component';
+import { ManageSubscriptionsComponent } from './manage-subscriptions/manage-subscriptions.component';
 
 
 @NgModule({
@@ -25,7 +26,7 @@ import { FieldFileTypeComponent } from './FormFieldTypes/FieldFileType/field-fil
   , FieldTextTypeComponent
   , FieldInformationTypeComponent
   , FieldChoiceTypeComponent
-  , FieldOptionsTypeComponent, FieldFileTypeComponent],
+  , FieldOptionsTypeComponent, FieldFileTypeComponent, ManageSubscriptionsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

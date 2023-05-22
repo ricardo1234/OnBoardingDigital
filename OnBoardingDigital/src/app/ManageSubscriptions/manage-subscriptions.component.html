@@ -1,0 +1,17 @@
+<nb-layout [nbSpinner]="loading"
+      nbSpinnerStatus="info"
+      nbSpinnerSize="giant"
+      nbSpinnerMessage="Estamos a construir o formulário para si...">
+  <nb-layout-header *ngIf="!error"><h4>{{email}}</h4></nb-layout-header>
+  <nb-layout-column *ngIf="error" >
+    <nb-card status="danger">
+      <nb-card-header>Erro</nb-card-header>
+      <nb-card-body>
+        Ocorreu um erro ao carregar o formulário. Por favor tente novamente mais tarde, ou contacte o administrador.
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+  <nb-layout-column *ngIf="!error" >
+    HELLO
+  </nb-layout-column>
+</nb-layout>
