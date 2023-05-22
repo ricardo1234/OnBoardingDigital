@@ -12,6 +12,23 @@
     </nb-card>
   </nb-layout-column>
   <nb-layout-column *ngIf="!error" >
-    HELLO
+    <table >
+      <tr>
+        <th hidden> ID</th>
+        <th>Formulário</th>
+        <th>Data de Criação</th>
+        <th>Ações</th>
+      </tr>
+      <tr *ngFor="let item of subscriptions">
+        <td hidden>{{ item.id }}</td>
+        <td>{{ item.formId }}</td>
+        <td>{{ item.createdAtUtc }}</td>
+        <td>
+          <button nbButton ghost><nb-icon icon="printer-outline" status="primary"></nb-icon></button>
+          <button nbButton ghost><nb-icon icon="more-vertical-outline" status="primary"></nb-icon></button>
+          <button nbButton ghost><nb-icon icon="trash-outline" status="danger"></nb-icon></button>
+        </td>
+      </tr>
+    </table>
   </nb-layout-column>
 </nb-layout>

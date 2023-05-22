@@ -1,1 +1,29 @@
 
+td,
+th {
+  padding: 10px;
+}
+/*style for the table*/
+table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid var(--button-filled-primary-background-color);
+}
+/*style for the table header*/
+th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: var(--button-filled-primary-background-color);
+  color: white;
+}
+/*style for the table rows*/
+tr:nth-child(odd) {
+  background-color: var(--header-background-color);
+}
+
+/*last column of the table fit content*/
+td:last-child {
+  width: 1%;
+  white-space: nowrap;
+}

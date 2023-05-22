@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SubscriptionService } from '../services/subscription.service';
+import { AllSubscriptionResponse } from '../Dtos/allSubscriptionResponse';
 
 @Component({
   selector: 'app-manage-subscriptions',
@@ -12,6 +13,7 @@ export class ManageSubscriptionsComponent implements OnInit
   email: string | null = "";
   loading = true;
   error = false;
+  subscriptions!: AllSubscriptionResponse[];
 
   constructor(private activatedRoute: ActivatedRoute,private subscriptionService: SubscriptionService) { }
 
@@ -24,6 +26,16 @@ export class ManageSubscriptionsComponent implements OnInit
       return;
     }
 
-
+    this.subscriptionService.get(this.email).subscribe({
+      next: (response) => {
+        this.subscriptions = response;
+       console.log(this.subscriptions);
+       this.loading = false;
+      },
+      error: () => {
+        this.error = true;
+        this.loading = false;
+      }
+     });
   }
 }
