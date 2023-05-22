@@ -18,7 +18,8 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
 
     private void ConfigureFormsTable(EntityTypeBuilder<Form> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.ToTable("Forms");
+        builder.HasKey(e => e.Id).HasName("FormId");
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasConversion(
@@ -42,7 +43,8 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
     {
         builder.WithOwner().HasForeignKey("FormId");
 
-        builder.HasKey(e => e.Id);
+        builder.ToTable("FormSections");
+        builder.HasKey(e => e.Id).HasName("FormSectionId");
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasConversion(
@@ -69,7 +71,8 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
     {
         builder.WithOwner().HasForeignKey("FormSectionId");
 
-        builder.HasKey(e => e.Id);
+        builder.ToTable("SectionFields");
+        builder.HasKey(e => e.Id).HasName("SectionFieldId");
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasConversion(
@@ -114,6 +117,12 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
         builder.OwnsOne(e => e.OptionsSettings, ob =>
         {
             ob.OwnsMany(e => e.Options, ovb => {
+
+                ovb.WithOwner().HasForeignKey("SectionFieldId");
+                ovb.ToTable("OptionsValues");
+
+                ovb.HasKey("SectionFieldId", "Value");
+
                 ovb.Property(e => e.NextSection)
                 .IsRequired(false)
                 .ValueGeneratedNever()
@@ -121,6 +130,7 @@ public class FormEntityTypeConfiguration : IEntityTypeConfiguration<Form>
                      nq => nq.Value,
                      value => FormSectionId.Create(value));
             });
+
             ob.Navigation(e => e.Options).Metadata.SetField("_options");
             ob.Navigation(e => e.Options).UsePropertyAccessMode(PropertyAccessMode.Field);
         });

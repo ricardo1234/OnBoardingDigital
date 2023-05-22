@@ -14,6 +14,7 @@ public class FormSectionId : ValueObject
     public static FormSectionId CreateUnique() => new FormSectionId(Guid.NewGuid());
 
     public static FormSectionId Create(Guid value) => new FormSectionId(value);
+    public static FormSectionId CreateFromString(string value) => new FormSectionId(Guid.Parse(value));
 
     protected override IEnumerable<object> GetEqualityComponents()
     {

@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services
     .AddApi()
-    .AddInfraestructure("");
+    .AddInfraestructure(builder.Configuration.GetConnectionString("OnBoardingDigitalBD"));
     
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

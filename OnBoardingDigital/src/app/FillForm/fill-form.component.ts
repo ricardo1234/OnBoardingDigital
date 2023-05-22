@@ -82,6 +82,7 @@ export class FillFormComponent {
     if(section == undefined)
       return;
 
+    section.fields.sort((a, b) => a.order - b.order);
     this.sections.push(section);
 
     let fields = section.fields.filter(

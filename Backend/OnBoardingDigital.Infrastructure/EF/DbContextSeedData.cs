@@ -23,7 +23,7 @@ public static class DbContextSeedData
         foreach (Form form in GetSeedDataForForms())
         {
             // only add warehouses that have not been registered yet
-            if (context.Forms.SingleOrDefault(x => x.Id.Value.Equals(form.Id.Value)) is null)
+            if (context.Forms.AsEnumerable().SingleOrDefault(x => x.Id.Value.Equals(form.Id.Value)) is null)
                 context.Forms.Add(form);
         }
 

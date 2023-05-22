@@ -1,6 +1,6 @@
 ﻿namespace OnBoardingDigital.Domain.Common;
 
-public abstract class AggregateRoot<TId, TIdType> : Entity<TId>
+public abstract class AggregateRoot<TId, TIdType>
     where TId : AggregateRootId<TIdType>
 {
     public new AggregateRootId<TIdType> Id { get; protected set; }

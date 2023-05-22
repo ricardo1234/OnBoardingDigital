@@ -19,7 +19,9 @@ public sealed class SubscriptionEntityTypeConfiguration : IEntityTypeConfigurati
 
     private void ConfigureFormsTable(EntityTypeBuilder<Subscription> builder)
     {
-        builder.HasKey(e => e.Id);
+        builder.ToTable("Subscriptions");
+
+        builder.HasKey(e => e.Id).HasName("SubscriptionId");
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasConversion(
@@ -44,7 +46,9 @@ public sealed class SubscriptionEntityTypeConfiguration : IEntityTypeConfigurati
     {
         builder.WithOwner().HasForeignKey("SubscriptionId");
 
-        builder.HasKey(e => e.Id);
+        builder.ToTable("SubscriptionAnswers");
+
+        builder.HasKey(e => e.Id).HasName("SubscriptionAnswerId");
         builder.Property(e => e.Id)
             .ValueGeneratedNever()
             .HasConversion(
