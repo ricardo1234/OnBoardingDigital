@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from '../services/form.service';
 import { FormResponse, FormSectionResponse } from '../Dtos/formResponse';
 import { NbStepperComponent, NbToggleComponent } from '@nebular/theme';
@@ -25,7 +25,7 @@ export class FillFormComponent {
 
   formData: FormData;
 
-  constructor(private activatedRoute: ActivatedRoute, private formService: FormService, private subscriptionService: SubscriptionService) {  this.formData = new FormData();}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private formService: FormService, private subscriptionService: SubscriptionService) {  this.formData = new FormData();}
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -108,8 +108,6 @@ export class FillFormComponent {
       }
     }
   }
-
-
 
   changeSection(id: string) {
     //get form group by id
@@ -263,8 +261,7 @@ export class FillFormComponent {
 
     this.subscriptionService.save(this.subscriptionRequest, this.formData).subscribe({
       next: () => {
-        this.formData.delete('subscription');
-        this.loading = false;
+        this.router.navigate([`/subscription/ByEmail/${this.subscriptionRequest.email}`]);;
       },
       error: () => {
         this.error = true;
@@ -273,7 +270,6 @@ export class FillFormComponent {
       }
     });
   }
-
 
    //#region Identification
    validateIdentification(){

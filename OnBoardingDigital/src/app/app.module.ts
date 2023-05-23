@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './LandingPage/landing-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbSpinnerModule, NbStepperModule, NbInputModule, NbButtonModule, NbToggleModule, NbSelectModule, NbAccordionComponent, NbAccordionModule, NbTreeGridModule, NbIconModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbSpinnerModule, NbStepperModule, NbInputModule, NbButtonModule, NbToggleModule, NbSelectModule, NbAccordionComponent, NbAccordionModule, NbTreeGridModule, NbIconModule, NbWindowModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { FillFormComponent } from './FillForm/fill-form.component';
@@ -48,6 +48,7 @@ import { ManageSubscriptionsComponent } from './ManageSubscriptions/manage-subsc
     NbAccordionModule,
     FormsModule,
     NbTreeGridModule,
+    NbWindowModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]
