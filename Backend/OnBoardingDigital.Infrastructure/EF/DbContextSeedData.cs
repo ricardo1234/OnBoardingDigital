@@ -1,4 +1,5 @@
-﻿using OnBoardingDigital.Domain.FormAggregate;
+﻿using Microsoft.EntityFrameworkCore.Query.Internal;
+using OnBoardingDigital.Domain.FormAggregate;
 using OnBoardingDigital.Domain.FormAggregate.Entities;
 using OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 using System.Diagnostics.CodeAnalysis;
@@ -41,12 +42,13 @@ public static class DbContextSeedData
 
     #region SectionsIds
     private static readonly FormId FormId = FormId.Create(Guid.Parse("b7a6c87c-553d-4a13-ab0d-b8d7f576e8c9"));
-    private static readonly FormSectionId Information = FormSectionId.CreateUnique();
-    private static readonly FormSectionId SubscriptionType = FormSectionId.CreateUnique();
-    private static readonly FormSectionId PersonalIdentificiation= FormSectionId.CreateUnique();
-    private static readonly FormSectionId CompanyIdentificiation = FormSectionId.CreateUnique();
-    private static readonly FormSectionId PersonalFiles = FormSectionId.CreateUnique();
-    private static readonly FormSectionId PersonalCompany = FormSectionId.CreateUnique();
+    private static readonly FormSectionId Information = FormSectionId.Create(Guid.Parse("e67e3b46-9eb8-4747-8373-ba3215571c29"));
+    private static readonly FormSectionId SubscriptionType = FormSectionId.Create(Guid.Parse("cdaa4a23-25c4-4403-b9c0-6c6980659bff"));
+    private static readonly FormSectionId PersonalIdentificiation= FormSectionId.Create(Guid.Parse("41fef0ea-535c-4775-a881-e09f716a0171"));
+    private static readonly FormSectionId CompanyIdentificiation = FormSectionId.Create(Guid.Parse("60a8f804-a6fa-4eb8-895d-415d9dd85825"));
+    private static readonly FormSectionId PersonalFiles = FormSectionId.Create(Guid.Parse("82624425-56f2-413f-a5ef-908ab7ff11d5"));
+    private static readonly FormSectionId PersonalCompany = FormSectionId.Create(Guid.Parse("b4229780-4306-47df-be7a-779d32fec1cd"));
+    private static readonly FormFieldId OptionField = FormFieldId.Create(Guid.Parse("2bd3a88c-3573-4880-88ae-4d8a14100d54"));
     #endregion
 
     private static Form GetFormExampleOne()
@@ -67,11 +69,11 @@ public static class DbContextSeedData
 
         var sectionSubscriptionType = FormSection.Create(SubscriptionType, "Tipo de Cliente", 2, Repeatable.Create(), null);
         sectionSubscriptionType.AddMultipleFormFields(new() {
-            FormField.CreateOptions(1, true, "Tipo Cliente", FieldOptionsSettings.Create(new()
+            FormField.Create(OptionField, 1, true, "Tipo Cliente", FieldType.Options,null,null,null, FieldOptionsSettings.Create(new()
             {
                 FieldOptionObject.Create("Particular", "Particular", PersonalIdentificiation),
                 FieldOptionObject.Create("Empresa", "Empresa", CompanyIdentificiation),
-            }))
+            }), null, null)
         });
         form.AddFormSection(sectionSubscriptionType);
 

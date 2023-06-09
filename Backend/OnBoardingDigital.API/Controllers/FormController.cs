@@ -2,6 +2,7 @@
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using OnBoardingDigital.API.Application.Commands.Forms;
 using OnBoardingDigital.API.Application.Queries.Forms;
 using OnBoardingDigital.Contracts.Form;
 using OnBoardingDigital.Domain.FormAggregate;
@@ -49,7 +50,7 @@ namespace OnBoardingDigital.API.Controllers
             return NotFound(getResult.FirstError.Description);
         }
         // GET api/<FormController>/exists/5
-        [HttpGet("exists/{id}")]
+        [HttpGet("Exists/{id}")]
         public async Task<IActionResult> Exists(string id)
         {
             if (!Guid.TryParse(id, out Guid _id))
@@ -64,5 +65,20 @@ namespace OnBoardingDigital.API.Controllers
 
             return NotFound(getResult.FirstError.Description);
         }
+
+        // POST api/<FormController>/randomadd
+        [HttpPost("RandomAdd")]
+        public async Task<IActionResult> AddSectionToForm()
+        {
+            var query = new ChangeFormCommand("b7a6c87c-553d-4a13-ab0d-b8d7f576e8c9");
+
+            var getResult = await _mediator.Send(query);
+
+            if (!getResult.IsError)
+                return Ok();
+
+            return NotFound(getResult.FirstError.Description);
+        }
+
     }
 }

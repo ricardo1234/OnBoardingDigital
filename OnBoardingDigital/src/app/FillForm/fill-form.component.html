@@ -33,11 +33,9 @@
                                 [status]="emailStatus">
                         <b>Por favor insira o seu email para poder ser enviado o contrato.</b>
                       </div>
-                    </nb-layout-column>
-                    <nb-layout-column >
                       <div class="input-group" >
                         <nb-toggle status="danger" #chkRgpd (checkedChange)="changeStatusRGPD()" >
-                          Aceito os termos, condições e política privacidade.
+                          Aceito os termos, condições e política privacidade, da plataforma de gestão de contratos OnBoardingDigital.
                         </nb-toggle>
                       </div>
                     </nb-layout-column>
@@ -89,7 +87,14 @@
                       <button class="btnChange" shape="semi-round" status="primary" nbButton (click)="saveSubscription()">Gravar o Contrato</button>
                     </nb-layout-header>
                     <nb-layout-column>
-                      <label><b>Obrigado por preencher os seus dados, irá receber o contrato no seu email em breve.</b></label>
+                      <label>
+                        <p>
+                          <b>Obrigado por preencher os seus dados. </b>
+                        </p>
+                        <p>
+                          <b>Depois de gravar os dados, irá ser redirecionado para a página de subscrições onde pode fazer o download do contrato.</b>
+                        </p>
+                      </label>
                     </nb-layout-column>
                   </nb-layout>
                </form>

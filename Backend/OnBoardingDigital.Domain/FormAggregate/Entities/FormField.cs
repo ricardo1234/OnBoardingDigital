@@ -49,6 +49,10 @@ public sealed class FormField : Entity<FormFieldId>
     public static FormField CreateInformation(int order, bool required, string description, FieldInformationSettings settings)
     => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Information, null, null, null, null, null, settings);
 
+
+    public static FormField Create(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings? choiceSettings, FieldFileSettings? fileSettings, FieldNumberSettings? numberSettings, FieldOptionsSettings? optionsSettings, FieldTextSettings? textSettings, FieldInformationSettings? informationSettings) 
+    => new(id, order, required, description, type, choiceSettings, fileSettings, numberSettings, optionsSettings, textSettings, informationSettings);
+
 #pragma warning disable CS8618
     private FormField()
     {

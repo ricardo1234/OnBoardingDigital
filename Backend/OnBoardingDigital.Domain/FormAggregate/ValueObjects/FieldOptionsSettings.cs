@@ -18,6 +18,12 @@ public class FieldOptionsSettings : ValueObject
     {
         yield return _options;
     }
+    public void AddOption(FieldOptionObject option)
+    {
+        _options.Add(option);
+    }
+
+
 #pragma warning disable CS8618
     private FieldOptionsSettings()
     {

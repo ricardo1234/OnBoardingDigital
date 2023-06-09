@@ -5,7 +5,7 @@ import { FieldOptionObjectResponse, FormFieldOptionsSettingsResponse } from 'src
   selector: 'field-options-type',
   template: `<div class="DynamicControl">
               <label>{{name}}</label>
-              <nb-select [placeholder]="name" [id]="id" fullWidth (selectedChange)="validate()" [status]="status">
+              <nb-select [placeholder]="name" [id]="id" fullWidth (selectedChange)="validate($event)" [status]="status">
                 <nb-option *ngFor="let option of configuration?.options" [value]="option.value">{{option.text}}</nb-option>
               </nb-select>
             </div>`,
@@ -37,7 +37,14 @@ export class FieldOptionsTypeComponent implements OnInit {
       this.status = "success";
   }
 
-  validate(): void {
+  validate($event : any): void {
+    var control = document.getElementById(this.id);
+    if(control == null){
+      return;
+    }
+
+    control.setAttribute('value-id', $event ?? "");
+
     this.status = "success";
   }
 }

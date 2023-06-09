@@ -103,6 +103,10 @@ export class FillFormComponent {
       let answer = this.subscriptionRequest.answers.find((answer) => answer.fieldId == element.id);
       if(answer != undefined){
         var nextSection = element.type.id == 67 ? element.choiceSettings?.nextSection : element.optionsSettings?.options.find((option) => option.value == answer?.answer)?.nextSection;
+        console.log(answer);
+        console.log(nextSection);
+        console.log(element);
+        console.log(element.optionsSettings?.options);
         this.createSectionsRecursive(nextSection);
         return;
       }
@@ -219,8 +223,12 @@ export class FillFormComponent {
     if (control.getAttribute("ng-reflect-status") != "success") {
       return false;
     }
-    let value = (control.children[0].children[0] as HTMLElement).innerText;
+
+
+    let value = control.getAttribute("value-id")?.toString() ?? "";
+
     this.addAnswer(id, value);
+
     return true;
   }
 
