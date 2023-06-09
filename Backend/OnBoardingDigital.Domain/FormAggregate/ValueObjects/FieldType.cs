@@ -11,7 +11,6 @@ public class FieldType : Enumeration
     public static readonly FieldType Options = new((int)AttributeFieldTypes.Options, "Options");
     public static readonly FieldType Text = new((int)AttributeFieldTypes.Text, "Text");
     public static readonly FieldType Information = new((int)AttributeFieldTypes.Information, "Information");
-    public static readonly FieldType DateTime = new((int)AttributeFieldTypes.DateTime, "DateTime");
     
     public FieldType(int id, string name)
         : base(id, name)
@@ -20,7 +19,7 @@ public class FieldType : Enumeration
 
     public static IEnumerable<FieldType> List()
     {
-        return new[] {  Choice, File, Number, Options, Text, Information, DateTime };
+        return new[] {  Choice, File, Number, Options, Text, Information };
     }
 
     public static FieldType FromName(string name)
@@ -58,7 +57,6 @@ public class FieldType : Enumeration
 public enum AttributeFieldTypes
 {
     Choice = 67,
-    DateTime = 68,
     File = 70,
     Information = 73,
     Number = 78,

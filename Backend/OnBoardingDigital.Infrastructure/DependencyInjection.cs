@@ -19,12 +19,13 @@ public static class DependencyInjection
         _ = services ?? throw new ArgumentNullException($"{nameof(services)} cannot be null");
 
         services.AddDbContext<OnBoardingDigitalDbContext>(opt =>
-               opt.UseInMemoryDatabase(SchemaNames.OnBoardingDigital));
+               opt.UseSqlite(connetionString));
 
         services.AddTransient<IUnitOfWork, UnitOfWork>();
 
         //Add Repository Dependencies Example:
         services.AddScoped<IFormRepository, FormRepository>();
+        services.AddScoped<ISubscriptionRepository, SubscriptionRepository>();
 
         return services;
     }

@@ -1,5 +1,5 @@
 import { Component, ViewChild, ViewChildren } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormService } from '../services/form.service';
 import { FormResponse, FormSectionResponse } from '../Dtos/formResponse';
 import { NbStepperComponent, NbToggleComponent } from '@nebular/theme';
@@ -25,7 +25,7 @@ export class FillFormComponent {
 
   formData: FormData;
 
-  constructor(private activatedRoute: ActivatedRoute, private formService: FormService, private subscriptionService: SubscriptionService) {  this.formData = new FormData();}
+  constructor(private activatedRoute: ActivatedRoute, private router: Router, private formService: FormService, private subscriptionService: SubscriptionService) {  this.formData = new FormData();}
 
   ngOnInit(): void {
     this.id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -82,6 +82,7 @@ export class FillFormComponent {
     if(section == undefined)
       return;
 
+    section.fields.sort((a, b) => a.order - b.order);
     this.sections.push(section);
 
     let fields = section.fields.filter(
@@ -102,13 +103,15 @@ export class FillFormComponent {
       let answer = this.subscriptionRequest.answers.find((answer) => answer.fieldId == element.id);
       if(answer != undefined){
         var nextSection = element.type.id == 67 ? element.choiceSettings?.nextSection : element.optionsSettings?.options.find((option) => option.value == answer?.answer)?.nextSection;
+        console.log(answer);
+        console.log(nextSection);
+        console.log(element);
+        console.log(element.optionsSettings?.options);
         this.createSectionsRecursive(nextSection);
         return;
       }
     }
   }
-
-
 
   changeSection(id: string) {
     //get form group by id
@@ -220,8 +223,12 @@ export class FillFormComponent {
     if (control.getAttribute("ng-reflect-status") != "success") {
       return false;
     }
-    let value = (control.children[0].children[0] as HTMLElement).innerText;
+
+
+    let value = control.getAttribute("value-id")?.toString() ?? "";
+
     this.addAnswer(id, value);
+
     return true;
   }
 
@@ -258,20 +265,19 @@ export class FillFormComponent {
   }
 
   saveSubscription() : void {
-    //this.loading = true;
+    this.loading = true;
 
     this.subscriptionService.save(this.subscriptionRequest, this.formData).subscribe({
       next: () => {
-        console.log("success");
+        this.router.navigate([`/subscription/ByEmail/${this.subscriptionRequest.email}`]);;
       },
       error: () => {
-        console.log("true");
-       // this.error = true;
-        //this.loading = false;
+        this.error = true;
+        this.loading = false;
+        this.formData.delete('subscription');
       }
     });
   }
-
 
    //#region Identification
    validateIdentification(){

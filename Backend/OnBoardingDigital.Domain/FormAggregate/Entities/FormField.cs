@@ -16,9 +16,8 @@ public sealed class FormField : Entity<FormFieldId>
     public FieldOptionsSettings? OptionsSettings { get; private set; }
     public FieldTextSettings? TextSettings { get; private set; }
     public FieldInformationSettings? InformationSettings { get; private set; }
-    public FieldDateTimeSettings? DateTimeSettings { get; private set; }
 
-    private FormField(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings? choiceSettings, FieldFileSettings? fileSettings, FieldNumberSettings? numberSettings, FieldOptionsSettings? optionsSettings, FieldTextSettings? textSettings, FieldInformationSettings? informationSettings, FieldDateTimeSettings? dateTimeSettings) : base(id)
+    private FormField(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings? choiceSettings, FieldFileSettings? fileSettings, FieldNumberSettings? numberSettings, FieldOptionsSettings? optionsSettings, FieldTextSettings? textSettings, FieldInformationSettings? informationSettings) : base(id)
     {
         Order = order;
         Required = required;
@@ -30,29 +29,29 @@ public sealed class FormField : Entity<FormFieldId>
         OptionsSettings = optionsSettings;
         TextSettings = textSettings;
         InformationSettings = informationSettings;
-        DateTimeSettings = dateTimeSettings;
     }
 
     public static FormField CreateChoice(int order, bool required, string description, FieldChoiceSettings settings)
-    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Choice, settings, null, null, null, null, null, null);
+    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Choice, settings, null, null, null, null, null);
     
     public static FormField CreateFile(int order, bool required, string description, FieldFileSettings settings)
-    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.File, null, settings, null, null, null, null, null);
+    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.File, null, settings, null, null, null, null);
     
     public static FormField CreateNumber(int order, bool required, string description, FieldNumberSettings settings)
-    => new (FormFieldId.CreateUnique(), order, required, description, FieldType.Number, null, null, settings, null, null, null, null);
+    => new (FormFieldId.CreateUnique(), order, required, description, FieldType.Number, null, null, settings, null, null, null);
     
     public static FormField CreateOptions(int order, bool required, string description, FieldOptionsSettings settings)
-    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Options, null, null, null, settings, null, null, null);
+    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Options, null, null, null, settings, null, null);
     
     public static FormField CreateText(int order, bool required, string description, FieldTextSettings settings)
-    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Text, null, null, null, null, settings, null, null);
+    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Text, null, null, null, null, settings, null);
 
     public static FormField CreateInformation(int order, bool required, string description, FieldInformationSettings settings)
-    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Information, null, null, null, null, null, settings, null);
+    => new(FormFieldId.CreateUnique(), order, required, description, FieldType.Information, null, null, null, null, null, settings);
 
-    public static FormField CreateDateTime(int order, bool required, string description, FieldDateTimeSettings settings)
-   => new(FormFieldId.CreateUnique(), order, required, description, FieldType.DateTime, null, null, null, null, null, null, settings);
+
+    public static FormField Create(FormFieldId id, int order, bool required, string description, FieldType type, FieldChoiceSettings? choiceSettings, FieldFileSettings? fileSettings, FieldNumberSettings? numberSettings, FieldOptionsSettings? optionsSettings, FieldTextSettings? textSettings, FieldInformationSettings? informationSettings) 
+    => new(id, order, required, description, type, choiceSettings, fileSettings, numberSettings, optionsSettings, textSettings, informationSettings);
 
 #pragma warning disable CS8618
     private FormField()

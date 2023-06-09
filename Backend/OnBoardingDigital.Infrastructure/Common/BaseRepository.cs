@@ -18,8 +18,8 @@ where TEntity : Entity<TEntityId>
     
     public virtual async Task<TEntity?> GetByIdAsync(TEntityId id)
     {
-        return await this._objs
-            .Where(x => id.Equals(x.Id)).FirstOrDefaultAsync();
+        List<TEntity> list = await GetAllAsync();
+        return list.Where(x => id.Equals(x.Id)).FirstOrDefault();
     }
     public virtual async Task<List<TEntity>> GetByIdsAsync(List<TEntityId> ids)
     {

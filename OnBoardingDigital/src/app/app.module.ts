@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LandingPageComponent } from './LandingPage/landing-page.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NbThemeModule, NbLayoutModule, NbCardModule, NbSpinnerModule, NbStepperModule, NbInputModule, NbButtonModule, NbToggleModule, NbSelectModule, NbAccordionComponent, NbAccordionModule } from '@nebular/theme';
+import { NbThemeModule, NbLayoutModule, NbCardModule, NbSpinnerModule, NbStepperModule, NbInputModule, NbButtonModule, NbToggleModule, NbSelectModule, NbAccordionComponent, NbAccordionModule, NbTreeGridModule, NbIconModule, NbWindowModule } from '@nebular/theme';
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { HttpClientModule } from '@angular/common/http';
 import { FillFormComponent } from './FillForm/fill-form.component';
@@ -15,6 +15,7 @@ import { FieldInformationTypeComponent } from './FormFieldTypes/FieldInformation
 import { FieldChoiceTypeComponent } from './FormFieldTypes/FieldChoiceType/field-choice-type.component';
 import { FieldOptionsTypeComponent } from './FormFieldTypes/FieldOptionsType/field-options-type.component';
 import { FieldFileTypeComponent } from './FormFieldTypes/FieldFileType/field-file-type.component';
+import { ManageSubscriptionsComponent } from './ManageSubscriptions/manage-subscriptions.component';
 
 
 @NgModule({
@@ -25,7 +26,9 @@ import { FieldFileTypeComponent } from './FormFieldTypes/FieldFileType/field-fil
   , FieldTextTypeComponent
   , FieldInformationTypeComponent
   , FieldChoiceTypeComponent
-  , FieldOptionsTypeComponent, FieldFileTypeComponent],
+  , FieldOptionsTypeComponent
+  , FieldFileTypeComponent
+  , ManageSubscriptionsComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,6 +36,7 @@ import { FieldFileTypeComponent } from './FormFieldTypes/FieldFileType/field-fil
     NbThemeModule.forRoot({ name: 'cosmic' }),
     NbLayoutModule,
     NbEvaIconsModule,
+    NbIconModule,
     NbCardModule,
     NbSpinnerModule,
     NbStepperModule,
@@ -43,6 +47,8 @@ import { FieldFileTypeComponent } from './FormFieldTypes/FieldFileType/field-fil
     NbSelectModule,
     NbAccordionModule,
     FormsModule,
+    NbTreeGridModule,
+    NbWindowModule.forRoot(),
   ],
   providers: [],
   bootstrap: [AppComponent]

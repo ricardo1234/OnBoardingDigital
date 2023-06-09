@@ -1,0 +1,61 @@
+<nb-layout [nbSpinner]="loading"
+      nbSpinnerStatus="info"
+      nbSpinnerSize="giant"
+      nbSpinnerMessage="A carregar dados...">
+  <nb-layout-header *ngIf="!error"><h4>{{email}}</h4></nb-layout-header>
+  <nb-layout-column *ngIf="error" >
+    <nb-card status="danger">
+      <nb-card-header>Erro</nb-card-header>
+      <nb-card-body>
+        Ocorreu um erro ao carregar o formulário. Por favor tente novamente mais tarde, ou contacte o administrador.
+      </nb-card-body>
+    </nb-card>
+  </nb-layout-column>
+  <nb-layout-column *ngIf="!error" >
+    <table >
+      <tr>
+        <th hidden> ID</th>
+        <th>Formulário</th>
+        <th>Data de Criação</th>
+        <th>Ações</th>
+      </tr>
+      <tr *ngFor="let item of subscriptions">
+        <td hidden>{{ item.id }}</td>
+        <td>{{ getFormName(item.formId) }}</td>
+        <td>{{ item.createdAtUtc }}</td>
+        <td>
+          <button nbButton ghost><nb-icon icon="printer-outline" status="primary"></nb-icon></button>
+          <button nbButton ghost><nb-icon icon="more-vertical-outline" status="primary" (click)="showDetails(item.id)"></nb-icon></button>
+          <button nbButton ghost><nb-icon icon="trash-outline" status="danger" (click)="deleteSubscription(item.id)"></nb-icon></button>
+        </td>
+      </tr>
+    </table>
+  </nb-layout-column>
+  <ng-template #subscriptionAnswersShow>
+    <nb-accordion>
+      <nb-accordion-item *ngFor="let item of allAnswers">
+        <nb-accordion-item-header>
+          {{ item.name }}
+        </nb-accordion-item-header>
+        <nb-accordion-item-body>
+          <table>
+            <tr>
+              <th>Index</th>
+              <th>Campo</th>
+              <th>Valor</th>
+              <th></th>
+            </tr>
+            <tr *ngFor="let item of item.answers">
+              <td>{{ item.index }}</td>
+              <td>{{ item.fieldName }}</td>
+              <td>{{ item.value }}</td>
+              <td>
+                <button *ngIf="item.isFile" nbButton ghost (click)="downloadFile(selectedSubscription.id, item.id, item.value)"><nb-icon icon="download-outline" status="primary"></nb-icon></button>
+              </td>
+            </tr>
+          </table>
+        </nb-accordion-item-body>
+      </nb-accordion-item>
+    </nb-accordion>
+  </ng-template>
+</nb-layout>

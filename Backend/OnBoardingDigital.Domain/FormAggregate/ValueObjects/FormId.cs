@@ -2,7 +2,7 @@
 
 namespace OnBoardingDigital.Domain.FormAggregate.ValueObjects;
 
-public class FormId : AggregateRootId<Guid>
+public sealed class FormId : AggregateRootId<Guid>
 {
     public override Guid Value { get; protected set; }
 
@@ -15,6 +15,7 @@ public class FormId : AggregateRootId<Guid>
 
     public static FormId Create(Guid value) => new FormId(value);
 
+    public static FormId CreateFromString(string value) => new FormId(Guid.Parse(value));
     protected override IEnumerable<object> GetEqualityComponents()
     {
         yield return Value;

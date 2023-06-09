@@ -8,8 +8,7 @@ public record FormFieldResponse(string Id, int Order, bool Required, string Desc
     FormFieldNumberSettingsResponse? NumberSettings,
     FormFieldOptionsSettingsResponse? OptionsSettings,
     FormFieldTextSettingsResponse? TextSettings,
-    FormFieldInformationSettingsResponse? InformationSettings,
-    FormFieldDateTimeSettingsResponse? DateTimeSettings);
+    FormFieldInformationSettingsResponse? InformationSettings);
 public record FormFieldTypeResponse(int Id, string Description);
 public record FormFieldChoiceSettingsResponse(string Group, string? NextSection);
 public record FormFieldFileSettingsResponse(List<string> Extensions, long? MaxSize);
@@ -18,4 +17,3 @@ public record FormFieldOptionsSettingsResponse(List<FieldOptionsValueResponse> O
 public record FieldOptionsValueResponse(string Value, string Text, string? NextSection);
 public record FormFieldTextSettingsResponse(int? CharMaximum, int? CharMinimum, string? ValidationExpression);
 public record FormFieldInformationSettingsResponse(string HtmlValue);
-public record FormFieldDateTimeSettingsResponse(bool HasTime, bool HasDate, bool IsMinimumToday, bool IsMaximumToday, DateTime? Minimum, DateTime? Maximum);
