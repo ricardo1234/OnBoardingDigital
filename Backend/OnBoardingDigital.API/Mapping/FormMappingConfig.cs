@@ -13,7 +13,6 @@ public class FormMappingConfig : IRegister
         FormResponse(config);
     }
 
-
     private void FormResponse(TypeAdapterConfig config)
     {
         config.NewConfig<Form, FormResponse>()
@@ -34,7 +33,6 @@ public class FormMappingConfig : IRegister
 
         config.NewConfig<FieldOptionObject, FieldOptionsValueResponse>()
            .Map(dest => dest.NextSection, src => src.NextSection == null ? null : src.NextSection.Value.ToString());
-
 
         config.NewConfig<Form, AllFormsResponse>()
             .Map(dest => dest.Id, src => src.Id.Value.ToString())

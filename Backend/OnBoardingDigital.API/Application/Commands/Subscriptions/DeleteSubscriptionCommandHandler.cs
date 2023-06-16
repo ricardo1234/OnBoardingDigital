@@ -13,7 +13,7 @@ public class DeleteSubscriptionCommandHandler : IRequestHandler<DeleteSubscripti
     private readonly ISubscriptionRepository subscriptionRepository;
     private readonly IUnitOfWork unitOfWork;
 
-    public DeleteSubscriptionCommandHandler(ISubscriptionRepository subscriptionRepository, IFormRepository formRepository, IUnitOfWork unitOfWork)
+    public DeleteSubscriptionCommandHandler(ISubscriptionRepository subscriptionRepository, IUnitOfWork unitOfWork)
     {
         this.subscriptionRepository = subscriptionRepository;
         this.unitOfWork = unitOfWork;
@@ -28,7 +28,7 @@ public class DeleteSubscriptionCommandHandler : IRequestHandler<DeleteSubscripti
 
         var subs = await subscriptionRepository.GetByIdAsync(subscriptionId);
         if(subs is null)
-            return Error.NotFound("Subscription.NotFound", "Subscritpion was not found.");
+            return Error.NotFound("Subscription.NotFound", "Subscription was not found.");
 
         subscriptionRepository.Remove(subs);
 

@@ -5,11 +5,15 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnBoardingDigital.Domain", "OnBoardingDigital.Domain\OnBoardingDigital.Domain.csproj", "{6CD11184-806A-43EA-A37E-0C310C70F1A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnBoardingDigital.Contracts", "OnBoardingDigital.Contracts\OnBoardingDigital.Contracts.csproj", "{04A4D7AB-11A0-498D-B246-5844AB786BDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnBoardingDigital.Contracts", "OnBoardingDigital.Contracts\OnBoardingDigital.Contracts.csproj", "{04A4D7AB-11A0-498D-B246-5844AB786BDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnBoardingDigital.API", "OnBoardingDigital.API\OnBoardingDigital.API.csproj", "{41EE8A88-1D22-4B09-949C-009A959DF81D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnBoardingDigital.API", "OnBoardingDigital.API\OnBoardingDigital.API.csproj", "{41EE8A88-1D22-4B09-949C-009A959DF81D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnBoardingDigital.Infrastructure", "OnBoardingDigital.Infrastructure\OnBoardingDigital.Infrastructure.csproj", "{A4219D05-1E75-4817-9C77-BD070DA8C757}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OnBoardingDigital.Infrastructure", "OnBoardingDigital.Infrastructure\OnBoardingDigital.Infrastructure.csproj", "{A4219D05-1E75-4817-9C77-BD070DA8C757}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnBoardingDigital.API.UnitTests", "OnBoardingDigital.API.UnitTests\OnBoardingDigital.API.UnitTests.csproj", "{73D46D79-789B-4DF5-80CB-F2E1B130D15E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnBoardingDigital.API.IntegrationTests", "OnBoardingDigital.API.IntegrationTests\OnBoardingDigital.API.IntegrationTests.csproj", "{82F557F2-F90E-4771-9473-2A26E651624D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +37,14 @@ Global
 		{A4219D05-1E75-4817-9C77-BD070DA8C757}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A4219D05-1E75-4817-9C77-BD070DA8C757}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A4219D05-1E75-4817-9C77-BD070DA8C757}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73D46D79-789B-4DF5-80CB-F2E1B130D15E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73D46D79-789B-4DF5-80CB-F2E1B130D15E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73D46D79-789B-4DF5-80CB-F2E1B130D15E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73D46D79-789B-4DF5-80CB-F2E1B130D15E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{82F557F2-F90E-4771-9473-2A26E651624D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{82F557F2-F90E-4771-9473-2A26E651624D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{82F557F2-F90E-4771-9473-2A26E651624D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{82F557F2-F90E-4771-9473-2A26E651624D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

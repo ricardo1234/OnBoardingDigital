@@ -121,7 +121,6 @@ public class PostSubscriptionCommandHandler : IRequestHandler<PostSubscriptionCo
 
         return SectionsRecursive(defaultSection, form, request, subscritpion);
     }
-
     private ErrorOr<Answer> ValidateFieldText(FormField field, SubscriptionAnswerRequest answer)
     {
         if (field.TextSettings?.ValidationExpression is not null)

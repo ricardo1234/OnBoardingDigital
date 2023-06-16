@@ -103,7 +103,7 @@ namespace OnBoardingDigital.API.Controllers
             var result = await _mediator.Send(new PostSubscriptionCommand(data, filesList));
 
             if (!result.IsError)
-                return Ok(result.Value);
+                return Ok(_mapper.Map<SubscriptionResponse>(result.Value));
 
             return result.FirstError.Type switch
             {
