@@ -8,6 +8,7 @@ import { AllFormsResponse } from '../Dtos/allFormsResponse';
 import { SubscriptionAnswerResponse, SubscriptionResponse } from '../Dtos/subscriptionResponse';
 import { FormResponse } from '../Dtos/formResponse';
 import { NumberInput } from '@angular/cdk/coercion';
+import { HttpResponse } from '@angular/common/http';
 
 
 interface FormSectionAnswer {
@@ -209,6 +210,21 @@ export class ManageSubscriptionsComponent implements OnInit
         var link = document.createElement('a');
         link.href = window.URL.createObjectURL(blob);
         link.download = fileName;
+        link.click();
+      },
+      error: () => {
+        this.error = true;
+        this.loading = false;
+      }});
+  }
+
+  downloadReport(subscriptionId: string){
+    this.subscriptionService.downloadReport(subscriptionId).subscribe({
+      next: (response) => {
+        let blob = new Blob([response], { type: response.type });
+        var link = document.createElement('a');
+        link.href = window.URL.createObjectURL(blob);
+        link.download = 'report.pdf';
         link.click();
       },
       error: () => {

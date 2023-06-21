@@ -7,6 +7,8 @@ using OnBoardingDigital.API.Application.Commands.Subscriptions;
 using OnBoardingDigital.API.Application.Queries.Subscriptions;
 using OnBoardingDigital.Contracts.Subscription;
 using MimeTypes;
+using System.Text.Unicode;
+using System.Text;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -47,7 +49,7 @@ namespace OnBoardingDigital.API.Controllers
         {
             var result = await _mediator.Send(new GetAllSubscriptionQuery(email));
 
-            if (!result.IsError) 
+            if (!result.IsError)
                 return Ok(_mapper.Map<List<AllSubscriptionResponse>>(result.Value));
 
             return BadRequest(result.FirstError);
@@ -70,6 +72,26 @@ namespace OnBoardingDigital.API.Controllers
             };
         }
 
+        // GET: api/<SubscriptionController>
+        [HttpGet("{idSubs}/GetReport")]
+        public async Task<IActionResult> GetReport(string idSubs)
+        {
+            var result = await _mediator.Send(new GetSubscriptionReportQuery(idSubs));
+
+            if (result.IsError)
+                return result.FirstError.Type switch
+                {
+                    ErrorType.NotFound => NotFound(result.FirstError.Description),
+                    ErrorType.Validation => BadRequest(result.FirstError.Description),
+                    _ => Problem("Could not process the request.")
+                };
+
+            var fileContent = new FileContentResult(result.Value.FileBytes, MimeTypeMap.GetMimeType("pdf"));
+            fileContent.FileDownloadName = Encoding.Unicode.GetString(Encoding.Convert(Encoding.UTF8, Encoding.Unicode, Encoding.UTF8.GetBytes(result.Value.FileName)));
+            return fileContent;
+        }
+
+
         // POST api/<SubscriptionController>
         [HttpPost]
         [Consumes("multipart/form-data")]
@@ -79,7 +101,7 @@ namespace OnBoardingDigital.API.Controllers
             IFormFileCollection files;
 
             var canParse = Request.Form.TryGetValue("subscription", out var subscription);
-            
+
             if (canParse)
                 data = JsonConvert.DeserializeObject<SubscriptionRequest>(subscription.ToString());
 
@@ -88,7 +110,7 @@ namespace OnBoardingDigital.API.Controllers
 
             files = HttpContext.Request.Form.Files;
             var filesList = new List<FileRequest>();
-            foreach(var file in files)
+            foreach (var file in files)
             {
                 if (file.Length > 0)
                 {
@@ -113,6 +135,7 @@ namespace OnBoardingDigital.API.Controllers
                 _ => Problem("Could not process the request.")
             };
         }
+
 
         // DELETE api/<SubscriptionController>/5
         [HttpDelete("{id}")]

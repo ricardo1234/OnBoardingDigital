@@ -33,4 +33,8 @@ export class SubscriptionService {
   downloadFile(subscriptionId: string, answerId: string) : Observable<Blob> {
     return this.http.get(environment.API_URL + '/Subscription/' + subscriptionId + '/GetFile/' + answerId, {responseType: 'blob'});
   }
+  downloadReport(subscriptionId: string) : Observable<Blob> {
+    return this.http.get(environment.API_URL + '/Subscription/' + subscriptionId + '/GetReport', {responseType: 'blob'});
+  }
+
 }

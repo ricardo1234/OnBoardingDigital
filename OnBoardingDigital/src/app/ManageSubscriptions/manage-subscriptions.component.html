@@ -24,7 +24,7 @@
         <td>{{ getFormName(item.formId) }}</td>
         <td>{{ item.createdAtUtc }}</td>
         <td>
-          <button nbButton ghost><nb-icon icon="printer-outline" status="primary"></nb-icon></button>
+          <button nbButton ghost><nb-icon icon="printer-outline" status="primary" (click)="downloadReport(item.id)"></nb-icon></button>
           <button nbButton ghost><nb-icon icon="more-vertical-outline" status="primary" (click)="showDetails(item.id)"></nb-icon></button>
           <button nbButton ghost><nb-icon icon="trash-outline" status="danger" (click)="deleteSubscription(item.id)"></nb-icon></button>
         </td>
